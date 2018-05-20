@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>終極密碼</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container bg-dark">
+        <div class="row mt-5">
+            <div class="col h-1 mt-5 text-center text-light">
+                <h1>終極密碼</h1>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="offset-3"></div>
+            <div class="col-lg">
+                <div class="form-group">
+                    <input type="text" class="form-control bg-dark text-light" id="txtInput">
+                    <h1 class="text-light text-center mt-5" id="txtShow">0~100</h1>
+                </div>
+            </div>
+            <div class="offset-3"></div>
+        </div>
+        <div class="row ">
+            <div class="col bg-dark h-1 mt-5">
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="offset-5"></div> -->
+            <div class="col text-center">
+                <table class="table">
+                    <tr class="text-center">
+                        <td>
+                            <button class="btn-lg rounded-circle">1</button>
+                        </td>
+                        <td>
+                            <button class="btn-lg rounded-circle">2</button>
+                        </td>
+                        <td>
+                            <button class="btn-lg rounded-circle">3</button>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>
+                            <button class="btn-lg rounded-circle">4</button>
+                        </td>
+                        <td>
+                            <button class="btn-lg rounded-circle">5</button>
+                        </td>
+                        <td>
+                            <button class="btn-lg rounded-circle">6</button>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>
+                            <button class="btn-lg rounded-circle">7</button>
+                        </td>
+                        <td>
+                            <button class="btn-lg rounded-circle">8</button>
+                        </td>
+                        <td>
+                            <button class="btn-lg rounded-circle">9</button>
+                        </td>
+                    </tr>
+                    <tr class="text-center">
+                        <td>
+                            <button class="btn-lg rounded-circle">清除</button>
+                        </td>
+                        <td>
+                            <button class="btn-lg rounded-circle">0</button>
+                        </td>
+                        <td>
+                            <button class="btn-lg rounded-circle">輸入</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var input = "";
+        var answer = Math.floor(Math.random() * 100);
+        var num = 0;
+        var min = 0;
+        var max = 100;
+        $(function () {
+            $("button").on("click",function(e) {
+                var button = e.target;
+                if ((button.innerText > 0 && input.length < 2) || (button.innerText == 0 && input.length > 0 && input.length < 2)) {
+                    input += button.innerText;
+                    $("#txtInput")[0].value =  input;
+                } else if (button.innerText == "清除") {
+                    input = "";
+                    $("#txtInput")[0].value =  "";
+                } else if (button.innerText == "輸入") {
+                    $("#txtShow")[0].innerText = comparer(input);
+                    input = "";
+                    $("#txtInput")[0].value =  input;
+                }
+            });
+        });
+
+        // document.querySelectorAll("button").forEach(element => {
+        //     element.onclick = function () {
+        //         if ((element.innerText > 0 && input.length < 2) || (element.innerText == 0 && input.length > 0 && input.length < 2)) {
+        //             input += element.innerText;
+        //             document.getElementById("txtInput").value = input;
+        //         } else if (element.innerText == "清除") {
+        //             input = "";
+        //             document.getElementById("txtInput").value = "";
+        //         } else if (element.innerText == "輸入") {
+        //             document.getElementById("txtShow").innerText = Comparer(input);
+        //             input = "";
+        //             document.getElementById("txtInput").value = input;
+        //         }
+        //     }
+        // });
+
+        function comparer(input) {
+            console.log(input);
+            num++;
+            if (answer < input) {
+                max = input;
+            } else if (answer == input) {
+                alert("猜中拉~ 用了" + num + "次");
+                location.reload();
+            } else if (num >= 5) {
+                alert("超過五次了,廢物!!重新再來!!");
+                location.reload();
+            } else {
+                min = input;
+            }
+            return (min + "~" + max);
+        }
+    </script>
+</body>
+
+</html>
